@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-service
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/sefa21/platfrom-engineer-test.git"
+    targetRevision: main
+    path: my-service  
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ingress:
+    enabled: true
+    host: my-service.local

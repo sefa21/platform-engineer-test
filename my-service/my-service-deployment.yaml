@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-service
+  labels:
+    app: my-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-service
+  template:
+    metadata:
+      labels:
+        app: my-service
+    spec:
+      containers:
+        - name: my-service
+          image: my-registry.local:5000/my-service:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ARGOCD_SERVER
+              value: "argocd-server.argocd.svc.cluster.local"
